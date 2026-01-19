@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus M84 - Deja de Procrastinar</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Motivational Header -->
+    <header id="header">
+        <h1>Focus M84</h1>
+        <p id="motivational-message">Deja de procrastinar. Haz el trabajo.</p>
+    </header>
+
+    <!-- Main Container -->
+    <main id="app">
+        <!-- Task Input Section -->
+        <section id="task-input-section" class="section">
+            <h2>Tus Tareas Pendientes</h2>
+            <p class="subtitle">Agrega todas las tareas que necesites. Elige cuál iniciar.</p>
+
+            <div id="task-form">
+                <input type="text" id="task-name" placeholder="¿Qué vas a hacer AHORA?" maxlength="100" />
+                <div class="time-input-group">
+                    <input type="number" id="task-time" placeholder="Minutos estimados" min="1" max="240" />
+                    <span class="time-label">min</span>
+                </div>
+                <button id="add-task-btn" class="btn btn-primary">
+                    Agregar Tarea
+                </button>
+            </div>
+
+            <!-- Task List -->
+            <div id="task-list" class="task-list"></div>
+
+            <!-- Start Focus Button -->
+            <button id="start-focus-btn" class="btn btn-focus" disabled>
+                Entrar en Modo Focus
+            </button>
+        </section>
+
+        <!-- Focus Mode Section (Hidden by default) -->
+        <section id="focus-mode-section" class="section hidden">
+            <div class="focus-container">
+                <!-- Current Task Display -->
+                <div id="current-task-display">
+                    <h2 id="focus-task-name">Cargando tarea...</h2>
+                    <p id="focus-task-time">Tiempo estimado: 0 min</p>
+                </div>
+
+                <!-- Timer Display -->
+                <div id="timer-display">
+                    <div id="timer">00:00</div>
+                    <div id="progress-bar">
+                        <div id="progress-fill"></div>
+                    </div>
+                </div>
+
+                <!-- Focus Controls -->
+                <div id="focus-controls">
+                    <button id="complete-task-btn" class="btn btn-success">
+                        ✓ Tarea Completada
+                    </button>
+                    <button id="quit-focus-btn" class="btn btn-danger">
+                        Abandonar (Cobarde)
+                    </button>
+                </div>
+
+                <!-- Harsh Motivation -->
+                <div id="focus-motivation" class="harsh-message"></div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section id="stats-section" class="section">
+            <h3>Tu Rendimiento</h3>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-value" id="completed-count">0</span>
+                    <span class="stat-label">Completadas</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="failed-count">0</span>
+                    <span class="stat-label">Abandonadas</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="completion-rate">0%</span>
+                    <span class="stat-label">Tasa de Éxito</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="focus-time">0h</span>
+                    <span class="stat-label">Tiempo Enfocado</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Confirmation Modal -->
+    <div id="quit-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>¿Seguro que quieres rendirte?</h2>
+            <p id="quit-message" class="harsh-message"></p>
+            <div class="modal-buttons">
+                <button id="confirm-quit-btn" class="btn btn-danger">
+                    Sí, me rindo
+                </button>
+                <button id="cancel-quit-btn" class="btn btn-primary">
+                    No, seguiré trabajando
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="storage.js"></script>
+    <script src="motivation.js"></script>
+    <script src="focus-engine.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus M84 - Reset</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 500px;
+            padding: 2rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            color: #a0a0a0;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        button {
+            background: #fff;
+            color: #0a0a0a;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 0.5rem;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        .danger {
+            background: #ff4444;
+            color: #fff;
+        }
+
+        .success {
+            background: #00ff88;
+            color: #0a0a0a;
+        }
+
+        .message {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #1a1a1a;
+            border-radius: 8px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🔧 Focus M84 - Reset</h1>
+        <p>Si la aplicación está atascada en modo focus o mostrando "Cargando tarea...", usa esta página para resetear
+            el estado.</p>
+
+        <button onclick="resetApp()" class="danger">Resetear Aplicación</button>
+        <button onclick="goToApp()" class="success">Ir a la Aplicación</button>
+
+        <div class="message" id="message"></div>
+    </div>
+
+    <script>
+        function resetApp() {
+            // Clear all localStorage
+            localStorage.clear();
+
+            // Show message
+            const msg = document.getElementById('message');
+            msg.textContent = '✅ Aplicación reseteada. Todos los datos han sido eliminados.';
+            msg.style.display = 'block';
+
+            // Redirect after 2 seconds
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 2000);
+        }
+
+        function goToApp() {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+
+</html>
