@@ -13,6 +13,11 @@ const taskSchema = new mongoose.Schema({
         min: 1,
         max: 240
     },
+    reward: {
+        type: String,
+        trim: true,
+        maxlength: 100
+    },
     createdAt: {
         type: Date,
         default: Date.now

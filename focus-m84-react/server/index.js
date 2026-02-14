@@ -13,15 +13,20 @@ app.use(express.json());
 // MongoDB Connection
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/focus_m84';
 
+// Routes
+const { router: reasonsRouter, seedDefaults } = require('./routes/reasons');
+
 mongoose.connect(MONGODB_URI)
-    .then(() => console.log('✅ MongoDB conectado exitosamente'))
+    .then(() => {
+        console.log('✅ MongoDB conectado exitosamente');
+        seedDefaults(); // Seed defaults only after successful connection
+    })
     .catch((err) => console.error('❌ Error conectando a MongoDB:', err));
 
-// Routes
 app.use('/api/tasks', require('./routes/tasks'));
 app.use('/api/stats', require('./routes/stats'));
 app.use('/api/history', require('./routes/history'));
-app.use('/api/reasons', require('./routes/reasons'));
+app.use('/api/reasons', reasonsRouter);
 
 // Health check
 app.get('/api/health', (req, res) => {

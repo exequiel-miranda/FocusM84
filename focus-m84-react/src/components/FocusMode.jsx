@@ -8,6 +8,7 @@ function FocusMode({ task, onComplete, onFail }) {
     const [isPaused, setIsPaused] = useState(false)
     const [showQuitModal, setShowQuitModal] = useState(false)
     const [showPauseModal, setShowPauseModal] = useState(false)
+    const [showRewardModal, setShowRewardModal] = useState(false)
     const [pauseReason, setPauseReason] = useState('')
     const [customReason, setCustomReason] = useState('')
     const [motivationMessage, setMotivationMessage] = useState('')
@@ -78,6 +79,14 @@ function FocusMode({ task, onComplete, onFail }) {
     }
 
     const handleComplete = () => {
+        if (task.reward) {
+            setShowRewardModal(true)
+        } else {
+            finalizeCompletion()
+        }
+    }
+
+    const finalizeCompletion = () => {
         const focusTimeMinutes = Math.ceil(elapsedTime / 60)
         onComplete(focusTimeMinutes, sessionPauses)
     }
@@ -255,6 +264,24 @@ function FocusMode({ task, onComplete, onFail }) {
                             </button>
                             <button onClick={() => setShowPauseModal(false)} className="btn btn-secondary">
                                 Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {showRewardModal && (
+                <div className="modal">
+                    <div className="modal-content reward-modal-content">
+                        <h2>🎉 ¡Felicidades! 🎉</h2>
+                        <p>Has completado la tarea <strong>"{task.name}"</strong>.</p>
+                        <div className="reward-display">
+                            <p>Tu recompensa desbloqueada:</p>
+                            <h3>🎁 {task.reward} 🎁</h3>
+                        </div>
+                        <div className="modal-buttons">
+                            <button onClick={finalizeCompletion} className="btn btn-success btn-large">
+                                ¡Reclamar Recompensa!
                             </button>
                         </div>
                     </div>

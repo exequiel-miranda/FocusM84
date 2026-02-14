@@ -4,6 +4,7 @@ import './TaskList.css'
 function TaskList({ tasks, onAddTask, onUpdateTask, onDeleteTask, onStartFocus }) {
     const [taskName, setTaskName] = useState('')
     const [taskTime, setTaskTime] = useState('')
+    const [taskReward, setTaskReward] = useState('')
     const [editingId, setEditingId] = useState(null)
 
     const handleSubmit = (e) => {
@@ -22,7 +23,7 @@ function TaskList({ tasks, onAddTask, onUpdateTask, onDeleteTask, onStartFocus }
 
         if (editingId) {
             // Update existing task
-            onUpdateTask(editingId, { name: taskName, estimatedTime: time })
+            onUpdateTask(editingId, { name: taskName, estimatedTime: time, reward: taskReward })
             setEditingId(null)
         } else {
             // Add new task
@@ -30,22 +31,25 @@ function TaskList({ tasks, onAddTask, onUpdateTask, onDeleteTask, onStartFocus }
                 alert('Máximo 20 tareas permitidas.')
                 return
             }
-            onAddTask({ name: taskName, estimatedTime: time })
+            onAddTask({ name: taskName, estimatedTime: time, reward: taskReward })
         }
 
         setTaskName('')
         setTaskTime('')
+        setTaskReward('')
     }
 
     const handleEdit = (task) => {
         setTaskName(task.name)
         setTaskTime(task.estimatedTime.toString())
+        setTaskReward(task.reward || '')
         setEditingId(task._id)
     }
 
     const handleCancelEdit = () => {
         setTaskName('')
         setTaskTime('')
+        setTaskReward('')
         setEditingId(null)
     }
 
@@ -75,6 +79,15 @@ function TaskList({ tasks, onAddTask, onUpdateTask, onDeleteTask, onStartFocus }
                     />
                     <span className="time-label">min</span>
                 </div>
+                <input
+                    type="text"
+                    placeholder="Recompensa (opcional)"
+                    value={taskReward}
+                    onChange={(e) => setTaskReward(e.target.value)}
+                    maxLength={100}
+                    className="task-input reward-input"
+                    style={{ marginTop: '0.5rem' }}
+                />
                 <div className="form-buttons">
                     <button type="submit" className="btn btn-primary">
                         {editingId ? 'Actualizar Tarea' : 'Agregar Tarea'}
@@ -95,7 +108,10 @@ function TaskList({ tasks, onAddTask, onUpdateTask, onDeleteTask, onStartFocus }
                         <div key={task._id} className="task-item">
                             <div className="task-info">
                                 <div className="task-name">{task.name}</div>
-                                <div className="task-time">{task.estimatedTime} minutos</div>
+                                <div className="task-time">
+                                    {task.estimatedTime} min
+                                    {task.reward && <span className="task-reward-badge" title={`Recompensa: ${task.reward}`}>🎁</span>}
+                                </div>
                             </div>
                             <div className="task-actions">
                                 <button
