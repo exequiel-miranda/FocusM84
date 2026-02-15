@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://focusm84.onrender.com/api';
 
 // Tasks API
 export const tasksAPI = {
